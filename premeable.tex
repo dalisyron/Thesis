@@ -3,6 +3,19 @@
 \usepackage{graphicx}
 \usepackage{framed} 
 \usepackage{lastpage}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+\usepackage{fontspec}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usetikzlibrary {shapes ,arrows ,positioning}
+
+\newmdtheoremenv{defi}{تعریف}[chapter]
+
+\setmonofont{JetBrains Mono}[
+Contextuals = Alternate,
+Ligatures = TeX,
+]
 
 % \usepackage[pagebackref=false,colorlinks=false,linkcolor=black,citecolor=blue]{hyperref}
 \usepackage[pagebackref=false]{hyperref}
@@ -23,6 +36,8 @@
 \usepackage[subfigure]{tocloft}
 \usepackage[nottoc]{tocbibind}
 \usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{booktabs}
 \makeindex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,7 +49,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % چنانچه می‌خواهید اعداد در فرمول‌ها، انگلیسی باشد، خط زیر را غیرفعال کنید
-\setdigitfont[Scale=0.8, Path=fonts/]{XB Zar.ttf}%{Persian Modern}
+% \setdigitfont[Scale=0.8, Path=fonts/]{XB Zar.ttf}%{Persian Modern}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % تعریف قلم‌های فارسی و انگلیسی اضافی برای استفاده در بعضی از قسمت‌های متن
 \defpersianfont\titlefont[Scale=0.8, Path=fonts/]{XB Titre.ttf}
@@ -56,7 +71,31 @@
 \newcommand\englishgloss[2]{#2\dotfill\lr{#1}\\}
 % تعریف دستور جدید «\پ» برای خلاصه‌نویسی جهت نوشتن عبارت «پروژه/پایان‌نامه/رساله»
 \newcommand{\پ}{پروژه/پایان‌نامه/رساله }
-
+\lstset{
+	basicstyle = \ttfamily \linespread{1.0} \scriptsize,
+	columns = flexible,
+}
+\lstdefinelanguage{Kotlin}{
+	frame=single,
+	tabsize=4,
+	comment=[l]{//},
+	commentstyle={\color{gray}\ttfamily},
+	emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
+	emphstyle={\color{OrangeRed}},
+	identifierstyle=\color{black},
+	keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiveris, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
+	keywordstyle={\color{NavyBlue}\bfseries},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+	morestring=[s]{"""*}{*"""},
+	ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing},
+	ndkeywordstyle={\color{BurntOrange}\bfseries},
+	sensitive=true,
+	stringstyle={\color{ForestGreen}\ttfamily},
+}
+\makeatletter
+\renewcommand*\verbatim@nolig@list{}
+\makeatother
 %\newcommand\BackSlash{\char`\\}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
