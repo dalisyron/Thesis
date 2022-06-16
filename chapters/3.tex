@@ -191,6 +191,7 @@ $\tau$
 \end{equation}
 
 \section{استراتژی تخلیه وظیفه بهینه}
+\label{sec:strat}
 با توجه به توابع بدست آمده برای تاخیر و توان مصرفی میانگین در بخش‌های پیشین، حال می‌توانیم مسئله پیدا کردن استراتژی تخلیه بهینه را به صورت یک مسئله بهینه سازی مانند
 $\mathcal{P}_{1}$
 بیان کنیم:
@@ -228,6 +229,7 @@ $\pi_{\boldsymbol{\tau}}=\sum_{a \in A} x_{\boldsymbol{\tau}}^{a}$
 $\mathcal{P}_{1}$
 خواهیم داشت:
 \begin{equation}
+	\label{eq:p2}
 	\begin{aligned}
 		\mathcal{P}_{2}: \min _{\boldsymbol{x}, \eta}\; & \bar{T}=(\sum_{i=1}^{k} \frac{1}{\alpha_i} \sum_{\tau \in \mathcal{S}} \sum_{a \in A} \tau\{q_i\} \cdot x_{\tau}^{a})+ T_p^0 \\
 		\text { \lr{s.t.} } &\left\{\begin{array}{l}
@@ -285,7 +287,7 @@ $\eta_0, \cdots, \eta_k$
 
 \begin{latin}
 	\begin{algorithm}
-		\rl{\caption{الگوریتم جستجوی استراتژی تخلیه وظیفه بهینه}}\label{alg:cap}
+		\rl{\caption{الگوریتم جستجوی استراتژی تخلیه وظیفه بهینه}\label{alg:cap}}
 		\begin{algorithmic}[1]
 			\Require $precision \geq 2$
 			\State $etaSettings \gets splitRange([0, 1], precision)^k$
