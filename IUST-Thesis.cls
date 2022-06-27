@@ -104,7 +104,7 @@
 {\huge\titlefont \@title}\par
 \vskip 5mm
 \if@bscthesis 
-	{\large\bfseries{پروژه کارشناسی \@subject}
+	{\large\bfseries{پروژه پایانی کارشناسی \@subject}
 	\ifx\@field\undefined%
 		\relax
 	\else
@@ -386,8 +386,7 @@ $\Box$ بهره‌برداری از این پایان‌نامه تا تاریخ
 {
 \large
 \if@bscthesis 
-    Bachelor of Science Thesis
-	in  \@latinsubject 
+    Bachelor of Computer Engineering Final Project
 \else
 	A Thesis Submitted in Partial Fulfillment of the Requirement for the Degree of 
 	 \if@mscthesis
