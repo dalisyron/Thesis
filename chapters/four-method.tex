@@ -111,14 +111,16 @@ $([2,1], 1, 2, 2, 1 )$ & $g_{\tau}^{A d d T o T U ( 2 )}$ * $(1 - \beta)$ * $\al
 زنجیره مارکوف را می‌توان به صورت گراف جهت‌دار نیز توصیف کرد به طوری که درایه $p_{i, j}$ در ماتریس انتقال معادل یک یال جهت‌دار از راس $i$ به راس $j$ با وزن $p_{i, j}$ می‌باشد. بنابراین می‌توان گفت که جدول \ref{table:transitions} یال‌های گراف با راس مبدا $\tau = ( [1, 1], 0, 1, 0, 1 )$ را مشخص می‌کند. در شکل \ref{fig:digraph} گراف جهت‌دار متناظر با زنجیره مارکوف سیستم نمونه‌ای رسم شده است. در این سیستم یک صف وظیفه وجود دارد، \(Q = 2\) و هر وظیفه دو قسمت و یک بسته دارد.\footnote{کد استفاده شده برای رسم این گراف در آدرس \lr{https://github.com/dalisyron/OffloadingVisualizer} موجود می‌باشد} با توجه به اینکه تنها یک نوع وظیفه در سیستم وجود دارد از متغیرهای $T_L$ و $T_R$ در فضای حالت صرف نظر شده است. سه‌تایی $(x, y, z)$ را بیانگر حالتی در نظر می‌گیریم که در آن $x$ وظیفه در صف وجود دارد، واحد ارسال در وضعیت $y$ قرار دارد و پردازنده $z$ قسمت از وظیفه تخصیص داده شده را اجرا کرده است.
 
 \newpage
-\begin{figure}[H]
-\centering
-\includegraphics[angle=270, origin=c, width=0.45\textwidth]{figures/graph.pdf}
-\caption[زنجیره مارکوف سیستم تخلیه در قالب گراف جهت دار]{
-زنجیره مارکوف سیستم تخلیه در قالب گراف جهت دار (برای مشاهده جزئیات زوم کنید)
-}
-\label{fig:digraph}
-\end{figure}
+\begin{landscape}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.5\textwidth]{figures/graph.pdf}
+		\caption[زنجیره مارکوف سیستم تخلیه در قالب گراف جهت دار]{
+			زنجیره مارکوف سیستم تخلیه در قالب گراف جهت دار (برای مشاهده جزئیات زوم کنید)
+		}
+		\label{fig:digraph}
+	\end{figure}
+\end{landscape}
 \newpage
 \section{محاسبه تاخیر و توان میانگین با کمک توزیع پایدار}
 به منظور محاسبه معیارهای توان مصرفی میانگین و تاخیر سرویس میانگین لازم است که بتوانیم درباره وضعیت سیستم تخلیه وظیفه در طولانی‌مدت استنتاج کنیم. در همین راستا مفهوم \textbf{توزیع پایدار} را برای زنجیره مارکوف تعریف می‌کنیم.
@@ -221,17 +223,17 @@ $S_1^i, \cdots, S_5^i$
 به صورت زیر تعریف می‌شوند:
 \begin{equation}
 	\begin{aligned}
-		& S_1^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToCPU \land locType(a) = i\} \\
-		& S_2^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToTU \land offloadType(a) = i\} \\ 
-		& S_3^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land locType(a) = i \land offloadType(a) \neq i\} \\
-		& S_4^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land locType(a) \neq i \land offloadType(a) = i\} \\
-		& S_5^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land locType(a) = i \land offloadType(a) = i\}
+		& S_1^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToCPU \land cpuQueue(a) = i\} \\
+		& S_2^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToTU \land tuQueue(a) = i\} \\ 
+		& S_3^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land cpuQueue(a) = i \land tuQueue(a) \neq i\} \\
+		& S_4^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land cpuQueue(a) \neq i \land tuQueue(a) = i\} \\
+		& S_5^i = \{\boldsymbol{\tau, a} \in \mathcal{S} \times A | type(a) = AddToBoth \land cpuQueue(a) = i \land tuQueue(a) = i\}
 	\end{aligned}
 \end{equation}
 در رابطه فوق تابع $type(a)$ نوع کنش را مشخص می‌کند و یکی از چهار نوع بیان شده در بخش \ref{sec:action} می‌باشد. توابع
-$locType(a)$
+$cpuQueue(a)$
 و
-$offloadType(a)$
+$tuQueue(a)$
 نیز نوع وظیفه مربوط به کنش $a$ را مشخص می‌کنند. \\
 
 با استفاده از روابط بالا همچنین می‌توانیم میانگین تاخیر سرویس هر وظیفه در سیستم را طبق رابطه \ref{eq:total-delay} محاسبه کنیم. رابطه بدست آمده برای $\bar{T}$ همچنین مشخص کننده تابع هدف در مسئله پیدا کردن استراتژی تخلیه بهینه می‌باشد.
@@ -245,15 +247,19 @@ $offloadType(a)$
 $\mu_\tau^{loc}$
 و 
 $\mu_\tau^{tx}$
-را که به ترتیب به عنوان احتمال فعالیت پردازنده در حالت
+را به ترتیب به عنوان احتمال فعالیت پردازنده در حالت
 $\tau$
-و احتمال فعالیت واحد ارسال در حالت
+و احتمال وجود درخواست ارسال وظیفه در حالت
 $\tau$
-تعریف کنیم، آنگاه توان مصرفی میانگین طبق رابطه زیر بدست می‌آید:
+تعریف کنیم، و $v_{loc}$ و $v_{tx}$ را به صورت مجموع این دو پارامتر در فضای حالت مسئله تعریف کنیم، آنگاه توان مصرفی میانگین طبق رابطه زیر بدست می‌آید:
 \begin{equation}
-	\bar{P}=\sum_{\boldsymbol{\tau} \in \mathcal{S}} \pi_{\boldsymbol{\tau}}\left(\mu_{\boldsymbol{\tau}}^{l o c} P_{l o c}+\mu_{\boldsymbol{\tau}}^{t x} P_{t x}\right)
+	\begin{aligned}
+		\bar{P} &=\sum_{\boldsymbol{\tau} \in \mathcal{S}} \pi_{\boldsymbol{\tau}}\left(\mu_{\boldsymbol{\tau}}^{l o c} P_{l o c}+\beta \mu_{\boldsymbol{\tau}}^{t x} P_{t x}\right) \\
+		&= \sum_{\boldsymbol{\tau} \in \mathcal{S}} \pi_{\boldsymbol{\tau}}\left(\mu_{\boldsymbol{\tau}}^{l o c} P_{l o c}\right) + \sum_{\boldsymbol{\tau} \in \mathcal{S}} \pi_{\boldsymbol{\tau}}\left(\beta\mu_{\boldsymbol{\tau}}^{t x} P_{t x}\right) \\
+		&=v_{loc}P_{loc} + \beta v_{tx}P_{tx}
+	\end{aligned}
 \end{equation}
-
+در اینجا فرض می‌کنیم که مقادیر $\mu_\tau^{loc}$ و $\mu_\tau^{tx}$ از قبل معلوم است. در \hyperref[appendix:2]{پیوست ۲} نحوه بدست آوردن مقادیر $v_{tx}$ و $v_{loc}$ در قالب کد شرح داده شده است.
 \section{استراتژی تخلیه وظیفه بهینه}
 \label{sec:strat}
 با توجه به توابع بدست آمده برای تاخیر و توان مصرفی میانگین در بخش‌های پیشین، حال می‌توانیم مسئله پیدا کردن استراتژی تخلیه بهینه را به صورت یک مسئله بهینه سازی مانند
@@ -279,7 +285,6 @@ $\eta_0, \cdots, \eta_k$
 \begin{equation}
 	T_p^0 = \sum_{i=1}^{k} (\eta_i L_i+(1-\eta_i) t_{c}^i)
 \end{equation}
-\clearpage
 مسئله
 $\mathcal{P}_{1}$
 به دلیل وجود پارامتر $\eta_i$ در تابع هدف یک مسئله خطی نیست. با این حال می‌توانیم با استفاده از تغییری کوچک مسئله را به مجموعه‌ای از مسائل برنامه‌ریزی خطی تبدیل کنیم. به این منظور مشابه با \cite{Liu} ابتدا از تعریف «معیار احاطه\LTRfootnote{Occupation Measure}» در زنجیره مارکوف استفاده می کنیم. به این منظور مجموعه متغیرهای جایگزین $\left\{x_{\tau}^{a}\right\}$ را طبق رابطه $x_{\tau}^{a}=\pi_{\tau} g_{\tau}^{a}$ تعریف می‌کنیم. به عبارتی $x_{\tau}^{a}$ برابر با احتمال حضور در حالت $\tau$ و انتخاب کنش
@@ -324,14 +329,22 @@ $F_{\tau}(\boldsymbol{x})$
 	F_{\tau}(\boldsymbol{x})=\sum_{\tau^{\prime} \in \mathcal{S}} \sum_{a \in A} \tilde{\chi}_{\tau^{\prime}, \tau, a} x_{\tau^{\prime}}^{a}-\sum_{a \in A} x_{\tau}^{a}
 \end{equation}
 در رابطه فوق منظور از
-$ \tilde{\chi}_{\tau^{\prime}, \tau, a}$
+$\tilde{\chi}_{\tau^{\prime}, \tau, a}$
 احتمال شرطی این است که به شرط اینکه در حالت
 $\tau^{\prime}$
 باشیم و کنش
 $a$
 انتخاب شده باشد، آنگاه به حالت
 $\tau^{\prime}$
-برویم. \\
+برویم و مطابق با رابطه \ref{eq:conditional} بدست می آید. لازم به ذکر است که مقدار 
+$ \tilde{\chi}_{\tau^{\prime}, \tau, a}$ 
+بر خلاف 
+$\chi_{\tau, \tau^{\prime}}$
+نسبت به استراتژی تخلیه احتمالی $g_\tau^a$ مستقل است.
+\begin{equation}
+	\label{eq:conditional}
+	\tilde{\chi}_{\tau, \tau^{\prime}, \alpha}=P\left(\tau[t+1]=\tau^{\prime} \mid \tau[t]=\tau \; \land v[t]=a\right)
+\end{equation}
 
 در صورتی که مقادیر
 $\eta_0, \cdots, \eta_k$
@@ -347,7 +360,7 @@ $\left\{x_{\tau}^{a}\right\}$
 $\mathcal{P}_2$
 را به ازای مقادیر مختلف 
 $\eta_0, \cdots, \eta_k$
-حل کرده تا استراتژی بهینه بدست بیاید. مراحل این فرآیند جستجو در الگوریتم ۱ به صورت خلاصه آمده است.
+حل کرده تا استراتژی بهینه بدست بیاید. مراحل این فرآیند جستجو در الگوریتم ۱ به صورت خلاصه آمده است. در این الگوریتم تابع $splitRange$ تابعی است که با گرفتن یک بازه از اعداد حقیقی مانند $R$ و پارامتر $precision$، تعداد $precision$ نمونه با فاصله‌های یکسان از بازه $R$ را در قالب یک لیست بر می‌گرداند. منظور از $splitRange([0, 1], precision)^k$ نیز ضرب دکارتی $k$ نمونه از این لیست‌های خروجی در یک دیگر می‌باشد.
 
 \begin{latin}
 	\begin{algorithm}
@@ -367,11 +380,10 @@ $\eta_0, \cdots, \eta_k$
 		\end{algorithmic}
 	\end{algorithm}
 \end{latin}
-
+\newpage
 \section{دو بهینه‌سازی برای الگوریتم جستجوی استراتژی}
 \label{sec:optim}
 در این بخش دو بهینه‌سازی مختلف را به منظور بهبود عملکرد الگوریتم \ref{alg:cap} معرفی می‌کنیم. این دو بهینه‌سازی در فریم‌ورک \lr{Kompute} که در فصل پیش رو ارائه خواهد شد پیاده‌سازی شده‌اند.
-
 \subsection{کاهش تعداد متغیرها}
 \label{sub:reducevariable}
 در مسئله بهینه‌سازی 
@@ -384,10 +396,63 @@ $x_{\tau}^{a}$
 $a$
 جزو کنش‌های ممکن در
 $\tau$
-نباشد را حذف کرد زیرا مقدار آنها در جواب مسئله همواره برابر صفر می‌باشد. به عنوان نمونه در جدول . مجموعه تمام کنش‌های سیستم تخلیه توصیف شده در جدول \ref{table:fixedranged2} به همراه امکان‌پذیری هر کنش در صورت حضور در حالت 
-$\tau = ([1, 1], 0, 1, 0, 1)$
+نباشد را حذف کرد زیرا مقدار آنها در جواب مسئله همواره برابر صفر می‌باشد. برای مثال در جدول \ref{table:isactionpossible} مجموعه تمام کنش‌های سیستم تخلیه توصیف شده در جدول \ref{table:fixedranged2} به همراه امکان‌پذیری هر کنش در صورت حضور در حالت 
+$\tau = ([3, 0], 0, 1, 0, 1)$
 مشخص شده است.
+\begin{table}
+	\centering
+	\begin{latin}
+\begin{tabular}{llc}
+	\hline Row & Action & Is Possible \\
+	\hline 
+1            & \texttt{\footnotesize NoOperation}                                         & Yes \\
+2            & \texttt{\footnotesize AddToCPU(queueIndex = 1)}                            & No \\
+3            & \texttt{\footnotesize AddToCPU(queueIndex = 2)}                            & No \\
+4            & \texttt{\footnotesize AddToTransmissionUnit(queueIndex = 1)}               & Yes \\
+5            & \texttt{\footnotesize AddToTransmissionUnit(queueIndex = 2)}               & No \\
+6            & \texttt{\footnotesize AddToBothUnits(cpuQueueIndex = 1, tuQueueIndex = 1)} & No  \\
+7            & \texttt{\footnotesize AddToBothUnits(cpuQueueIndex = 1, tuQueueIndex = 2)} & No \\
+8            & \texttt{\footnotesize AddToBothUnits(cpuQueueIndex = 2, tuQueueIndex = 1)} &No \\
+9            & \texttt{\footnotesize AddToBothUnits(cpuQueueIndex = 2, tuQueueIndex = 2)} &No \\\bottomrule
+	\hline
+\end{tabular}
+	\end{latin}
+	\caption{امکان پذیری کنش‌های مختلف در حالت $\tau = ([3, 0], 0, 1, 0, 1)$}
+	\label{table:isactionpossible}
+\end{table}
+همانطور که مشاهده می‌شود در این حالت فقط ۲ کنش از مجموعه ۹ کنش موجود در $A$ امکان‌پذیر می‌باشند. کنش‌های ردیف ۲ و ۳ به دلیل مشغول بودن پردازنده امکان‌پذیر نمی‌باشند. کنش ردیف ۵ به دلیل خالی بودن صف وظایف نوع ۲ امکان‌پذیر نمی‌باشد. کنش‌های ردیف ۶ الی ۹ نیز به دلیل مشغول بودن پردازنده امکان پذیر نمی‌باشند. بنابراین می‌توانیم به سادگی ۷ متغیر متناظر این کنش‌ها را از مجموعه $\left\{x_{\tau}^{a}\right\}$ حذف کنیم بدون اینکه تغییری در جواب مسئله بهینه‌سازی $\mathcal{P}_2$ ایجاد شود.
 \subsection{موازی‌سازی}
 الگوریتم \ref{alg:cap} به گونه‌ای تعریف شده است که امکان موازی‌سازی و مقیاس‌پذیری\LTRfootnote{Scaling} آن به صورت خطی وجود دارد. به عبارت دیگر می‌توان مسئله برنامه‌ریزی خطی متناظر با هر مقداردهی از
 $\eta_0, \cdots, \eta_k$
-را به یک هسته/گره پردازشی خاص اختصاص داد. در شبیه‌سازی سناریو وظایف سبک و سنگین (رجوع شود به \ref{sub:heavylight}) مشاهده شد که الگوریتم موازی‌سازی شده هنگام اجرا بر روی سروری با ۲۴ هسته و تقسیم‌بندی به ۲۴ رشته\LTRfootnote{Thread} عملکردی معادل ۲۰ برابر سریع‌تر از حالت تک‌رشته\LTRfootnote{Single-thread} داشت.
+را به یک هسته یا گره پردازشی خاص اختصاص داد. ساز و کار این روش در الگوریتم \ref{alg:conc} توصیف شده است.
+\begin{latin}
+	\begin{algorithm}
+		\rl{\caption{الگوریتم جستجوی استراتژی تخلیه وظیفه بهینه موازی‌سازی شده}\label{alg:conc}}
+		\begin{algorithmic}[1]
+			\Require $precision \geq 2$
+			\Require $threadCnt \geq 1$
+			\State \textbf{synchronized} $optimalPolicy = null$
+			\Procedure{$findOptimalForEtaSettings$}{$etaSettings$}
+			\ForEach {$s \in etaSettings$}
+			\State $(\eta_0, \cdots, \eta_k) \gets s$
+			\State $solution \gets solveLP(\eta_0, \cdots, \eta_k)$
+			\If{$optimalPolicy = null\;\mathbf{or}\;solution.delay < optimalPolicy.delay$}
+			\State $optimalPolicy \gets solution.policy$
+			\EndIf
+			\EndFor
+			\EndProcedure
+			\State $etaSettings \gets splitRange([0, 1], precision)^k$
+			\State $etaBatches \gets splitToBatches(etaSettings, threadCnt)$
+			\ForEach {$i \in 1 \cdots threadCnt$}
+			\State \(thread[i] = Thread\{findOptimalForEtaSettings(etaBatches[i])\}\)
+			\EndFor
+			\ForEach {$i \in 1 \cdots threadCnt$}
+			\State $thread[i].start()$
+			\EndFor
+			\ForEach {$i \in 1 \cdots threadCnt$}
+			\State $thread[i].join()$
+			\EndFor \\
+			\Return $optimalPolicy$
+		\end{algorithmic}
+	\end{algorithm}
+\end{latin}

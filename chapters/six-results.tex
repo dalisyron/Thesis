@@ -1,4 +1,75 @@
 \chapter{آزمایش و نتایج}
+در این فصل به منظور آزمایش روش ارائه شده در فصل پیشین، ابتدا چارچوب نرم‌افزاری با نام \textbf{کامپیوت} (\lr{Kompute}) ارائه خواهیم داد که با استفاده از آن می‌توان الگوریتم جستجوی استراتژی تخلیه بهینه را به ازای پارامترهای محیطی مختلف اجرا کرد و عملکرد استراتژی‌های تخلیه وظیفه را با کمک شبیه‌سازی بررسی کرد. این چارچوب نرم‌افزاری طبق یافته‌های ما اولین پیاده‌سازی متن‌باز در ئزمینه استراتژی تخلیه وظایف ناهمگون در رایانش لبه‌ای است. در بخش دوم این فصل، استراتژی تخلیه وظیفه را تحت شرایط مختلف شبیه‌سازی کرده و نتایج آن را ارائه خواهیم کرد.
+\section{چارچوب نرم‌افزاری \lr{Kompute}}
+چارچوب نرم‌افزاری کامپیوت با هدف محاسبه و آزمایش استراتژی تخلیه وظیفه بهینه در محیط‌های رایانش لبه‌ای توسعه داده شده است. در این بخش ابتدا توضیح مختصری در مورد نحوه کارکرد و معماری کامپیوت خواهیم داد و سپس برنامه‌های نمونه‌ای برای «پیدا کردن استراتژی تخلیه بهینه» و «شبیه‌سازی و سنجش استراتژی تخلیه» ارائه خواهیم کرد. کامپیوت در زبان کاتلین\LTRfootnote{Kotlin} نوشته شده است. کاتلین یک زبان برنامه‌نویسی چندمنظوره است که نخستین بار توسط شرکت «جت برینز\LTRfootnote{JetBrains}» ارائه شد. محبوب‌ترین نسخه زبان کاتلین نسخه کاتلین برای ماشین مجازی جاوا\LTRfootnote{Java Virtual Machine} می‌باشد که قابلیت هم‌کنش‌پذیری کامل با زبان جاوا را دارد. انتخاب زبان کاتلین برای پیاده‌سازی روش پیشنهادی در \CurrentProject دلایل مختلفی داشته، از جمله:
+\begin{itemize}
+	\item سادگی نحو زبان
+	\item قابلیت‌های زیاد کتابخانه استاندارد
+	\item پشتیبانی از رابط بومی جاوا\LTRfootnote{Java Native Interface} به منظور حل سریع برنامه‌های خطی در زبان \lr{C++}
+\end{itemize}
+کد مخزن این چارچوب نرم‌افزاری از آدرس زیر قابل دسترسی می‌باشد:
+\begin{latin}
+	\begin{itemize}
+		\item \href{https://github.com/dalisyron/Kompute}{https://github.com/dalisyron/Kompute}
+	\end{itemize}
+\end{latin}
+
+\newpage
+\begin{figure}[H]
+	\includegraphics[width=0.9\textwidth]{cdiagram.png}
+	\caption{کلاس دیاگرام فریم‌ورک \lr{Kompute}}
+\end{figure}
+\newpage
+\subsection{ساخت و حل یک مسئله تخلیه وظیفه نمونه در \lr{Kompute}}
+در کد نمونه زیر مسئله تخلیه وظیفه‌ برای محیط رایانش لبه‌ای با دو صف\footnote{شرایط بر اساس تقسیم‌بندی وظایف به \lr{Heavy} و \lr{Light} در اینترنت اشیا} حل شده است.
+\begin{latin}
+	\begin{lstlisting}[language=Kotlin]
+fun main(args: Array<String>) {
+	val systemConfig = OffloadingSystemConfig(
+		userEquipmentConfig = UserEquipmentConfig(
+			stateConfig = UserEquipmentStateConfig(
+				taskQueueCapacity = 5,
+				tuNumberOfPackets = listOf(1, 3),
+				cpuNumberOfSections = listOf(7, 2),
+				numberOfQueues = 2
+			),
+			componentsConfig = UserEquipmentComponentsConfig(
+				alpha = listOf(0.4, 0.9),
+				beta = 0.90,
+				etaConfig = null,
+				pTx = 1.0,
+				pLocal = 0.8,
+				pMax = 1.7
+			)
+		),
+		environmentParameters = EnvironmentParameters(
+			nCloud = listOf(1, 1),
+			tRx = 0.5,
+		)
+	)
+	
+	val optimalPolicy = RangedOptimalPolicyFinder.findOptimalPolicy(
+		baseSystemConfig = systemConfig, 
+		precision = 10
+	)
+	/*
+	// For multi-threaded execution use this instead:
+	
+	val optimalPolicy = ConcurrentRangedOptimalPolicyFinder(
+		baseSystemConfig = systemConfig
+	).findOptimalPolicy(precision = 10, numberOfThreads = 8)
+	*/
+	
+	
+	val decisionProbabilities: Map<StateAction, Double>
+	= optimalPolicy.stochasticPolicyConfig.decisionProbabilities
+	
+	println(decisionProbabilities)
+}
+	\end{lstlisting}
+\end{latin}
+\newpage
+\section{نتایج شبیه‌سازی}
 در این بخش عملکرد استراتژی یافت شده توسط الگوریتم \ref{alg:cap} را با چهار الگوریتم پایه زیر مقایسه می‌کنیم:
 \begin{enumerate}
 	\item استراتژی «فقط تخلیه»\LTRfootnote{Offload Only} که همه‌ی وظایف را تخلیه می‌کند
@@ -7,7 +78,7 @@
 	\item استراتژی «فقط (اجرای) محلی»\LTRfootnote{Local Only}
 \end{enumerate}
 \newpage
-\section{شبیه‌سازی تک صف}
+\subsection{شبیه‌سازی تک صف}
 با توجه به اینکه روش ارائه شده توسط ما حالت گسترش یافته \cite{Liu} است، ابتدا محیط تست ارائه شده در آن پژوهش را برای تست الگوریتم در نظر می‌گیریم. پارامترهای این محیط در جدول \ref{table:parameters-singlequeue} خلاصه شده اند. نتیجه این آزمایش در شکل \ref{plot:singleQueue} مشاهده می‌شود.
 
 % Please add the following required packages to your document preamble:
@@ -32,7 +103,7 @@
 \end{figure}
 همانطور که مشاهده می‌شود استراتژی تخلیه تصادفی یافت شده از تمام الگوریتم‌های پایه بهتر عمل می‌کند و شکل منحنی‌های نمودار با \cite{Liu} مطابقت دارد.
 \newpage
-\section{شبیه‌سازی دو صف با یک صف ثابت در سناریو سبک و سنگین}
+\subsection{شبیه‌سازی دو صف با یک صف ثابت در سناریو سبک و سنگین}
 در این قسمت سناریوی تست به این گونه است که میزان تاخیر به ازای مقادیر مختلف نرخ ورود برای صف شماره یک و مقدار ثابت نرخ ورود برای صف شماره دو مشاهده می‌شود. پارامترهای محیطی در نظر گرفته شده در جدول \ref{table:fixedranged} به طور خلاصه آمده است.
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{FixedRanged.png}
@@ -52,8 +123,7 @@
 	\label{table:fixedranged}
 \end{table}
 همانطور که مشاهده می‌شود استراتژی تخلیه بهینه بسیار بهتر از الگوریتم‌های پایه عمل می‌کند. دلیل اصلی این تفاوت زیاد (نسبت به تفاوت کم در سناریو با یک صف در بخش قبل) عدم هوشمندی استراتژی‌های حریصانه در انتخاب نوع وظیفه تخصیص داده شده به پردازنده و واحد ارسال است. به عبارت دیگر انتخاب تصادفی نوع وظیفه فرستاده شده به پردازنده و واحد ارسال در الگوریتم‌های حریصانه باعث می‌شود که در شرایطی که تفاوت زیادی بین نوع وظایف وجود دارد (مانند سناریو سبک و سنگین) این الگوریتم‌ها عملکرد خیلی بدی داشته باشند. این در حالی است که در حالت تک صف انتخاب بین انواع وظیفه مطرح نبوده است و تنها عامل برای عملکرد غیربهینه‌ی استراتژی‌های حریصانه، عدم زمانبندی درست وظایف بوده است.
-\newpage
-\section{شبیه‌سازی دو صف متغیر وظایف سبک و سنگین}
+\subsection{شبیه‌سازی دو صف متغیر وظایف سبک و سنگین}
 \label{sub:heavylight}
 در این قسمت مقدار تاخیر سرویس به ازای مقادیر مختلف نرخ ورود به هر دو صف محاسبه شده است. پارامترهای سیستمی این سناریو در جدول \ref{table:double} آمده است. همانطور که مشاهده می‌شود استراتژی بهینه در بازه 
 $\alpha_1, \alpha_2 \in [0, 0.4]$
@@ -74,7 +144,7 @@ $\alpha_1, \alpha_2 \in [0, 0.4]$
 	\label{table:double}
 \end{table}
 \newpage
-\section{شبیه‌سازی سه صف وظیفه}
+\subsection{شبیه‌سازی سه صف وظیفه}
 در این قسمت عملکرد الگوریتم ارائه شده در شرایطی که سه صف وجود دارد بررسی شده است. پارامترهای محیط رایانش لبه‌ای در جدول \ref{table:triple} آورده شده است. با توجه به اینکه رسم نمودار در شرایط چهار بعدی امکان پذیر نیست از مفهومی به نام آزمون «کارآمدی» استفاده می‌کنیم. مفهوم کارآمدی را اینگونه تعریف می‌کنیم که یک استراتژی کارآمد است اگر احتمال پر بودن یک یا چند صف در سیستم از 
 $\frac{1}{|S|}$
 کمتر باشد. در این آزمایش، کارآمدی استراتژی‌های مختلف را به ازای ۱۰۰۰ نمونه مختلف در بازه‌های 
