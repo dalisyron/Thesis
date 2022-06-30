@@ -14,6 +14,7 @@
 \usepackage{multirow}
 \usepackage{rotating}
 \usepackage{lscape}
+\usepackage{xparse}
 
 \setcounter{tocdepth}{1}
 \newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
@@ -55,6 +56,7 @@ Ligatures = TeX,
 \usepackage{caption}
 \usepackage[subfigure]{tocloft}
 \usepackage[nottoc]{tocbibind}
+\usepackage{bidi}
 \usepackage{makeidx}
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -210,4 +212,12 @@ stringstyle={\color{ForestGreen}\ttfamily},
 \graphicspath{{figures/}}
 \usepackage{caption}
 
+\renewcommand*\lstlistingname{\rl{قطعه کد}}
+\definecolor{light-gray}{gray}{0.89}
+
+\newcommand{\code}[1]{%
+	\begingroup\setlength{\fboxsep}{0pt}% no padding
+	\colorbox{light-gray}{\lstinline|#1|}%
+	\endgroup
+}
 \DefaultMathsDigits
