@@ -104,7 +104,7 @@
 {\huge\titlefont \@title}\par
 \vskip 5mm
 \if@bscthesis 
-	{\large\bfseries{پروژه پایانی کارشناسی \@subject}
+	{\large\bfseries{پروژه‌ی پایانی کارشناسی \@subject}
 	\ifx\@field\undefined%
 		\relax
 	\else
