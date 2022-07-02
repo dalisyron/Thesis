@@ -18,7 +18,7 @@
 \usepackage{lscape}
 \usepackage{xparse}
 \usepackage{multicol}
-
+\usepackage{url}
 \setcounter{tocdepth}{1}
 \newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
 \usetikzlibrary{shapes ,arrows ,positioning}
@@ -242,3 +242,4 @@ stringstyle={\color{ForestGreen}\ttfamily},
 \renewcommand*\chaptermark[1]{%
 	\renewcommand*\mtitle{{\fontsize{30pt}{30pt}\selectfont#1}}%
 	\mchap{#1}}
+\newcommand{\Cite}[1]{\lr{\cite{#1}}}

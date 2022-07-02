@@ -26,8 +26,19 @@
   pages={998-1010},
   doi={10.1109/JIOT.2017.2788802}}
 @ARTICLE{tran,  author={Tran-Dang, Hoa and Kim, Dong-Seong},  journal={IEEE Transactions on Parallel and Distributed Systems},   title={FRATO: Fog Resource Based Adaptive Task Offloading for Delay-Minimizing IoT Service Provisioning},   year={2021},  volume={32},  number={10},  pages={2491-2508},  doi={10.1109/TPDS.2021.3067654}}
-@INBOOK{LTE,  author={Taha, Abd-Elhamid M. and Ali, Najah Abu and Hassanein, Hossam S.},  booktitle={LTE, LTE-Advanced and WiMAX: Towards IMT-Advanced Networks},   title={Frame-Structure and Node Identification},   year={2011},  volume={},  number={},  pages={147-160},  doi={10.1002/9781119970446.ch10}}
-
+@Inbook{LTE,
+    author={Taha, Abd-Elhamid M.
+        and Ali, Najah Abu
+            and Hassanein, Hossam S.},
+    title={Frame Structure, Addressing and Identification},
+    series={LTE, LTE-Advanced and WiMAX: Towards IMT-Advanced Networks},
+    year={2011},
+    publisher={Wiley},
+    pages={59-73},
+    doi={10.1002/9781119970446.ch4},
+    url={http://ieeexplore.ieee.org/document/8045017},
+    url={https://doi.org/10.1002/9781119970446.ch4}
+}
 @article{wang2019,
 author = {Wang, Jianyu and Pan, Jianli and Esposito, Flavio and Calyam, Prasad and Yang, Zhicheng and Mohapatra, Prasant},
 title = {Edge Cloud Offloading Algorithms: Issues, Methods, and Perspectives},
@@ -41,8 +52,8 @@ issn = {0360-0300},
 url = {https://doi.org/10.1145/3284387},
 doi = {10.1145/3284387},
 abstract = {Mobile devices supporting the “Internet of Things” often have limited capabilities in computation, battery energy, and storage space, especially to support resource-intensive applications involving virtual reality, augmented reality, multimedia delivery, and artificial intelligence, which could require broad bandwidth, low response latency, and large computational power. Edge cloud or edge computing is an emerging topic and a technology that can tackle the deficiencies of the currently centralized-only cloud computing model and move the computation and storage resources closer to the devices in support of the above-mentioned applications. To make this happen, efficient coordination mechanisms and “offloading” algorithms are needed to allow mobile devices and the edge cloud to work together smoothly. In this survey article, we investigate the key issues, methods, and various state-of-the-art efforts related to the offloading problem. We adopt a new characterizing model to study the whole process of offloading from mobile devices to the edge cloud. Through comprehensive discussions, we aim to draw an overall “big picture” on the existing efforts and research directions. Our study also indicates that the offloading algorithms in the edge cloud have demonstrated profound potentials for future technology and application development.},
-journal = {ACM Comput. Surv.},
-month = {feb},
+journal = {ACM Computing Surveys},
+month = {Feb},
 articleno = {2},
 numpages = {23},
 keywords = {offloading algorithms, mobile edge computing, mathematical models, edge computing, Internet of Things}
@@ -77,7 +88,7 @@ url = {https://doi.org/10.1145/1814433.1814441},
 doi = {10.1145/1814433.1814441},
 abstract = {This paper presents MAUI, a system that enables fine-grained energy-aware offload of mobile code to the infrastructure. Previous approaches to these problems either relied heavily on programmer support to partition an application, or they were coarse-grained requiring full process (or full VM) migration. MAUI uses the benefits of a managed code environment to offer the best of both worlds: it supports fine-grained code offload to maximize energy savings with minimal burden on the programmer. MAUI decides at run-time which methods should be remotely executed, driven by an optimization engine that achieves the best energy savings possible under the mobile device's current connectivity constrains. In our evaluation, we show that MAUI enables: 1) a resource-intensive face recognition application that consumes an order of magnitude less energy, 2) a latency-sensitive arcade game application that doubles its refresh rate, and 3) a voice-based language translation application that bypasses the limitations of the smartphone environment by executing unsupported components remotely.},
 booktitle = {Proceedings of the 8th International Conference on Mobile Systems, Applications, and Services},
-pages = {49–62},
+pages = {49-62},
 numpages = {14},
 keywords = {partitioning, code offload, smartphones, energy management},
 location = {San Francisco, California, USA},
@@ -89,8 +100,27 @@ series = {MobiSys '10}
 @INPROCEEDINGS{9128981,  author={Chen, Xianfu and Chen, Tao and Zhao, Zhifeng and Zhang, Honggang and Bennis, Mehdi and JI, Yusheng},  booktitle={2020 IEEE 91st Vehicular Technology Conference (VTC2020-Spring)},   title={Resource Awareness In Unmanned Aerial Vehicle-Assisted Mobile-Edge Computing Systems},   year={2020},  volume={},  number={},  pages={1-6},  doi={10.1109/VTC2020-Spring48590.2020.9128981}}
 @ARTICLE{samanta,  author={Samanta, Amit and Chang, Zheng},  journal={IEEE Internet of Things Journal},   title={Adaptive Service Offloading for Revenue Maximization in Mobile Edge Computing With Delay-Constraint},   year={2019},  volume={6},  number={2},  pages={3864-3872},  doi={10.1109/JIOT.2019.2892398}}
 @ARTICLE{kwak,  author={Kwak, Jeongho and Kim, Yeongjin and Lee, Joohyun and Chong, Song},  journal={IEEE Journal on Selected Areas in Communications},   title={DREAM: Dynamic Resource and Task Allocation for Energy Minimization in Mobile Cloud Systems},   year={2015},  volume={33},  number={12},  pages={2510-2523},  doi={10.1109/JSAC.2015.2478718}}
-@ARTICLE{jiang,  author={Jiang, Zhefeng and Mao, Shiwen},  journal={IEEE Access},   title={Energy Delay Tradeoff in Cloud Offloading for Multi-Core Mobile Devices},   year={2015},  volume={3},  number={},  pages={2306-2316},  doi={10.1109/ACCESS.2015.2499300}}
+
+@Article{jiang,
+author={Jiang, Z.
+and Mao, S.},
+title={Energy Delay Tradeoff in Cloud Offloading for Multi-Core Mobile Devices},
+journal={IEEE Access},
+year={2015},
+volume={3},
+pages={2306-2316},
+abstract={Cloud offloading is considered a promising approach for both energy conservation and storage/computation enhancement for resource-limited mobile devices. In this paper, we present a Lyapunov optimization-based scheme for cloud offloading scheduling, as well as download scheduling for cloud execution output, for multiple applications running in a mobile device with a multi-core CPU. We derive an online algorithm and prove performance bounds for the proposed algorithm with respect to average power consumption and average queue length, which is indicative of delay, and reveal the fundamental tradeoff between the two optimization goals. The performance of the proposed online scheduling scheme is validated with trace-driven simulations.},
+issn={2169-3536},
+doi={10.1109/ACCESS.2015.2499300},
+url={https://doi.org/10.1109/ACCESS.2015.2499300}
+}
 @ARTICLE{zhang2013,  author={Zhang, Weiwen and Wen, Yonggang and Guan, Kyle and Kilper, Dan and Luo, Haiyun and Wu, Dapeng Oliver},  journal={IEEE Transactions on Wireless Communications},   title={Energy-Optimal Mobile Cloud Computing under Stochastic Wireless Channel},   year={2013},  volume={12},  number={9},  pages={4569-4581},  doi={10.1109/TWC.2013.072513.121842}}
-@misc{glop, url={https://en.wikipedia.org/wiki/GLOP}, journal={En.wikipedia.org}, year={2022} }
+@misc{ glop,
+author = "{Wikipedia contributors}",
+title = "GLOP --- {Wikipedia}{,} The Free Encyclopedia",
+year = "2022",
+url = "https://en.wikipedia.org/wiki/GLOP",
+note = "[Online; accessed 2-July-2022]"
+}
 @ARTICLE{mach,  author={Abbas, Nasir and Zhang, Yan and Taherkordi, Amir and Skeie, Tor},  journal={IEEE Internet of Things Journal},   title={Mobile Edge Computing: A Survey},   year={2018},  volume={5},  number={1},  pages={450-465},  doi={10.1109/JIOT.2017.2750180}}
 @ARTICLE{manet,  author={Feng, Guangsheng and Li, Xin and Gao, Zihan and Wang, Chengbo and Lv, Hongwu and Zhao, Qian},  journal={IEEE Transactions on Vehicular Technology},   title={Multi-Path and Multi-Hop Task Offloading in Mobile Ad Hoc Networks},   year={2021},  volume={70},  number={6},  pages={5347-5361},  doi={10.1109/TVT.2021.3077691}}
