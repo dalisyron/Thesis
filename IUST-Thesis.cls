@@ -22,9 +22,9 @@
 \ProvidesClass{IUST-Thesis}
               [10/21/2011 v0.4
  Persian thesis document class in XeLaTeX for University of Tabriz projects/theses/dissertations]
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 \ProcessOptions
-\LoadClass[a4paper,12pt]{book}
+\LoadClass[a4paper,12pt]{report}
 \def\university#1{\gdef\@university{#1}}
 \def\department#1{\gdef\@department{#1}}
 \def\degree#1{\gdef\@degree{#1}}
