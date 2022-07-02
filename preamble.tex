@@ -1,4 +1,6 @@
 \usepackage{amsthm,amssymb,amsmath}
+\usepackage{titlesec}
+\usepackage{etoolbox}
 \usepackage{float}
 \usepackage[top=40mm, bottom=40mm, left=25mm, right=35mm]{geometry}
 \usepackage{graphicx}
@@ -222,3 +224,21 @@ stringstyle={\color{ForestGreen}\ttfamily},
 	\endgroup
 }
 \DefaultMathsDigits
+\titleformat{\chapter}[display]
+{\vspace{-3cm}\filleft}
+{{%
+		\vspace{-3cm}\vfill\filcenter\fontsize{20pt}{20pt}\selectfont{\chaptername}
+		\fontsize{20pt}{50pt}\selectfont\tt\newline\null\hfill\mtitle\hfill\null\vfill\clearpage%
+}}%
+{26pt}{\fontsize{26pt}{26pt}\selectfont}[]
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+\renewcommand\thechapter{\tartibi{chapter}}
+\let\tt\thechapter
+\renewcommand\thechapter{\arabic{chapter}}
+\newcommand*{\mchapter}[1]{\chapter[#1]{\thechapter.\,#1}}
+\patchcmd{\chapter}{plain}{empty}{}{}
+\newcommand*\mtitle{}
+\let\mchap=\chaptermark
+\renewcommand*\chaptermark[1]{%
+	\renewcommand*\mtitle{{\fontsize{30pt}{30pt}\selectfont#1}}%
+	\mchap{#1}}
